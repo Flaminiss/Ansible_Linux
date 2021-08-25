@@ -1,0 +1,17 @@
+---
+- name: Install primary packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - vim
+    - curl
+    - wget
+    - mc
+    - selinux-utils
+    - zabbix-agent
+    - net-tools
+    - sudo
+    - pv
+    - htop
+    - tmux  

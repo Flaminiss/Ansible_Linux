@@ -1,0 +1,12 @@
+---
+- name: Create system user
+  hosts: all
+  become: yes
+  tasks:
+    - name: create a new user
+      user:
+        name: ansible
+        state: present
+        password: R00tcent0s1,.
+        shell: /bin/bash
+        home: /home/ansible

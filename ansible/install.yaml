@@ -1,0 +1,39 @@
+---
+- name: "Install primary programs"
+  hosts: networkmg
+  become: yes
+  tasks:
+    - name: Install primary packages
+      package:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - vim
+        - tmux
+        - htop
+        - curl
+        - wget
+        - sudo
+        - net-tools
+        - zabbix-agent
+        - mc
+        - selinux-utils
+
+
+    - name: "setting server for zabbix agent"
+      replace:
+        path: /etc/zabbix/zabbix_agentd.conf
+        regexp: 'Server=127.0.0.1'
+        replace: 'Server=172.17.25.105'
+    - name: "zabbix agent start and add to autostart"
+      service:
+        name: zabbix-agent
+        state: started
+        enabled: yes
+      # notify allow to change status of task and then trigger the handlers.
+      notify: restart zabbix-agent  
+  handlers:
+    - name: restart zabbix-agent
+      service: 
+        name: zabbix-agent
+        state: restarted

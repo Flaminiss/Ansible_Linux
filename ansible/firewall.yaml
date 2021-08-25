@@ -1,0 +1,24 @@
+---
+- name: "Install and configure firewall"
+  hosts: all
+  become: yes
+  tasks:    
+    - name: "Install ufw"
+      package:
+        name: ufw
+        state: present
+    - name: "Configure allowed port"
+      command: '{{ item }}'
+      with_items:
+        - ufw allow 67  
+        - ufw allow 68  
+        - ufw allow 53  
+        - ufw allow 10050/tcp  
+        - ufw allow 22
+    - name: "Configure additional ports for web servers" 
+      hosts: monitoring,network,dns
+      - name: "Allow ports"
+        command: '{{ item }}'
+        with_items:
+          - ufw allow 443/tcp
+          - ufw allow 80/tcp

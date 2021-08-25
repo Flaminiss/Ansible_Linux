@@ -1,0 +1,7 @@
+---
+- name: Install primary programs
+  hosts: all
+  become: yes
+  roles:
+  - common
+  - zabbix

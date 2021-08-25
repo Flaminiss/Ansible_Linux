@@ -1,0 +1,12 @@
+---
+- name: Delete system user
+  hosts: all
+  become: yes
+  tasks:
+    - name: delete a user
+      user:
+        name: ansible
+        state: absent
+        password: R00tcent0s1,.
+        shell: /bin/bash
+        home: /home/ansible

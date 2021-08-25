@@ -1,0 +1,16 @@
+---
+- name: "Install primary programs"
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install primary packages
+      package:
+        name: '{{ item }}'
+        state: present
+      with_items:
+        - selinux-utils
+    - name: check status of selinux
+      command: getenforce
+      register: sestatus
+      changed_when: false
+

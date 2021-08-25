@@ -1,0 +1,13 @@
+---
+- name: "Update and upgrade linux servers"
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update packages
+      apt:
+        update_cache: yes      
+        force_apt_get: yes
+    - name: Upgrade packages
+      apt:
+        upgrade: yes
+        force_apt_get: yes      

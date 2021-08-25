@@ -1,0 +1,15 @@
+---
+- name: "Set zabbix server address"
+  hosts: networkmg
+  become: yes
+  tasks:
+  - name: "line replace"
+    replace:
+      path: /etc/zabbix/zabbix_agentd.conf
+      regexp: 'Server=127.0.0.1'
+      replace: 'Server=172.17.25.105'
+  - name: restart zabbix-agent
+    service:
+      name: zabbix-agent
+      state: restarted
+

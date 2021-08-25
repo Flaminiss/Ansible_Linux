@@ -1,0 +1,14 @@
+---
+- name: Check status of service
+  hosts: all
+  become: yes
+  gather_facts: false
+  tasks:
+  - name: Check status of zabbix-agent
+    shell: "systemctl status zabbix-agent" 
+    changed_when: false
+    register: result
+  - name: showing output
+    debug:
+      var: result
+

@@ -1,0 +1,15 @@
+---
+- name: "Set zabbix server address"
+  hosts: monitoring
+  become: yes
+  tasks:
+  - name: "line replace"
+    replace:
+      path: /etc/zabbix/zabbix_agentd.conf
+      regexp: 'Server=172.17.25.105'
+      replace: 'Server=127.0.0.1'
+  - name: "restart zabbix-agent"
+    #shell: "sudo /etc/init.d/zabbix-agent restart"
+    service:
+      name: zabbix-agent
+      state: restarted

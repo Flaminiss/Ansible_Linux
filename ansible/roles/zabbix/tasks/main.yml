@@ -1,0 +1,13 @@
+---
+- name: "setting server for zabbix agent"
+  replace:
+    path: /etc/zabbix/zabbix_agentd.conf
+    regexp: 'Server=127.0.0.1'
+    replace: 'Server=172.17.25.105'
+- name: "zabbix agent start and add to autostart"
+  service:
+    name: zabbix-agent
+    state: started
+    enabled: yes
+    # notify allow to change status of task and then trigger the handlers.
+    notify: restart zabbix-agent  
